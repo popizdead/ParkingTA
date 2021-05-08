@@ -12,6 +12,7 @@ class MainMapViewController: UIViewController {
     
     //MARK:OUTLETS
     @IBOutlet weak var map: MKMapView!
+    var selectedSpot: Parking?
     
     let locationManager = CLLocationManager()
     let regionConst : Double = 10000
@@ -25,5 +26,6 @@ class MainMapViewController: UIViewController {
 
         checkPermission()
         observes()
+        
     }
 }

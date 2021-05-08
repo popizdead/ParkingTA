@@ -9,7 +9,6 @@ import Foundation
 import CoreLocation
 import MapKit
 
-
 extension MainMapViewController: CLLocationManagerDelegate {
     //MARK: CONFIGURE
     private func mapConfigure() {
@@ -37,6 +36,7 @@ extension MainMapViewController: CLLocationManagerDelegate {
     private func setupLocationDelegate() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        map.delegate = self
     }
     
     private func checkLocationAuth() {
@@ -73,6 +73,31 @@ extension MainMapViewController {
         let annotation = MKPointAnnotation()
         annotation.title = parking.name
         annotation.coordinate = coordinate
+        
         map.addAnnotation(annotation)
+        self.sourceParkingArray.append(parking)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let tempSpot = self.selectedSpot {
+            let destinationVC = segue.destination as! ReviewSpotViewController
+            destinationVC.reviewSpot = tempSpot
+        }
+    }
+}
+
+//MARK:ANNOTATION
+extension MainMapViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        return nil
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        sourceParkingArray.forEach { (spot) in
+            if spot.name == view.annotation?.title {
+                self.selectedSpot = spot
+                self.performSegue(withIdentifier: "reviewSpot", sender: self)
+            }
+        }
     }
 }

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,9 @@
 		632C84EF2646047100030A7D /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632C84EE2646047100030A7D /* MapModel.swift */; };
 		632C84F226460DE600030A7D /* Parking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632C84F126460DE600030A7D /* Parking.swift */; };
 		632C84F826460F3100030A7D /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632C84F726460F3100030A7D /* NetworkService.swift */; };
+		632C85012646268900030A7D /* ReviewSpotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632C85002646268900030A7D /* ReviewSpotViewController.swift */; };
+		632C850B26462DC100030A7D /* ReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632C850A26462DC000030A7D /* ReviewModel.swift */; };
+		632C850E2646DD4500030A7D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632C850D2646DD4500030A7D /* Extensions.swift */; };
 		FAC31D32FB20581C93B83BF5 /* Pods_ParkingTA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4697A7E8D5B0D4CD4476074 /* Pods_ParkingTA.framework */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +34,9 @@
 		632C84EE2646047100030A7D /* MapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapModel.swift; sourceTree = "<group>"; };
 		632C84F126460DE600030A7D /* Parking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parking.swift; sourceTree = "<group>"; };
 		632C84F726460F3100030A7D /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		632C85002646268900030A7D /* ReviewSpotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSpotViewController.swift; sourceTree = "<group>"; };
+		632C850A26462DC000030A7D /* ReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewModel.swift; sourceTree = "<group>"; };
+		632C850D2646DD4500030A7D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		8F751107E22ACA966676E227 /* Pods-ParkingTA.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ParkingTA.release.xcconfig"; path = "Target Support Files/Pods-ParkingTA/Pods-ParkingTA.release.xcconfig"; sourceTree = "<group>"; };
 		A1BE1119B1A1697E2DD1DCBC /* Pods-ParkingTA.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ParkingTA.debug.xcconfig"; path = "Target Support Files/Pods-ParkingTA/Pods-ParkingTA.debug.xcconfig"; sourceTree = "<group>"; };
 		C4697A7E8D5B0D4CD4476074 /* Pods_ParkingTA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ParkingTA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				632C84EB2646034500030A7D /* MainMapModule */,
+				632C85032646269100030A7D /* ReviewSpotModel */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -135,8 +142,18 @@
 			isa = PBXGroup;
 			children = (
 				632C84F726460F3100030A7D /* NetworkService.swift */,
+				632C850D2646DD4500030A7D /* Extensions.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		632C85032646269100030A7D /* ReviewSpotModel */ = {
+			isa = PBXGroup;
+			children = (
+				632C85002646268900030A7D /* ReviewSpotViewController.swift */,
+				632C850A26462DC000030A7D /* ReviewModel.swift */,
+			);
+			path = ReviewSpotModel;
 			sourceTree = "<group>";
 		};
 		B9C1D3FF0734D8127AF6BC56 /* Pods */ = {
@@ -145,7 +162,6 @@
 				A1BE1119B1A1697E2DD1DCBC /* Pods-ParkingTA.debug.xcconfig */,
 				8F751107E22ACA966676E227 /* Pods-ParkingTA.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -264,11 +280,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				632C84EF2646047100030A7D /* MapModel.swift in Sources */,
+				632C850E2646DD4500030A7D /* Extensions.swift in Sources */,
 				632C84E72646033200030A7D /* MainMapViewController.swift in Sources */,
 				632C84F226460DE600030A7D /* Parking.swift in Sources */,
 				63237BD7264575CB00BD8B06 /* AppDelegate.swift in Sources */,
 				632C84F826460F3100030A7D /* NetworkService.swift in Sources */,
+				632C85012646268900030A7D /* ReviewSpotViewController.swift in Sources */,
 				63237BD9264575CB00BD8B06 /* SceneDelegate.swift in Sources */,
+				632C850B26462DC100030A7D /* ReviewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
