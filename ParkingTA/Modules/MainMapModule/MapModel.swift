@@ -64,6 +64,7 @@ extension MainMapViewController {
     //MARK:OBSERVES
     func observes() {
         NotificationCenter.default.addObserver(self, selector: #selector(updateArray(_:)), name: NSNotification.Name("updateParkSource"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(getParkInfo(_:)), name: NSNotification.Name("getParkInfo"), object: nil)
     }
     
     @objc func updateArray(_ notification: NSNotification) {
@@ -76,6 +77,19 @@ extension MainMapViewController {
         
         map.addAnnotation(annotation)
         self.sourceParkingArray.append(parking)
+    }
+    
+    @objc func getParkInfo(_ notification: NSNotification) {
+        guard let id = notification.userInfo?["id"] as? String else { return }
+        guard let lastUpdate = notification.userInfo?["lastUpdate"] as? String else { return }
+        guard let status = notification.userInfo?["status"] as? String else { return }
+        
+        self.sourceParkingArray.forEach { (parking) in
+            if parking.id == id {
+                parking.lastUpdate = lastUpdate
+                parking.status = status
+            }
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
