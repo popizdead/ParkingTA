@@ -86,10 +86,23 @@ extension MainMapViewController {
         
         self.sourceParkingArray.forEach { (parking) in
             if parking.id == id {
-                parking.lastUpdate = lastUpdate
+                parking.lastUpdate = convertDate(string: lastUpdate)
                 parking.status = status
             }
         }
+    }
+    
+    private func convertDate(string: String) -> String {
+        let df = DateFormatter()
+        var tempString = ""
+        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z"
+        
+        if let date = df.date(from: string) {
+            df.dateFormat = "HH:mm:ss dd/MM"
+            tempString = df.string(from: date)
+        }
+        
+        return tempString
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

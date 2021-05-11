@@ -18,6 +18,11 @@ class ReviewSpotViewController: UIViewController {
     @IBOutlet weak var nameBgView: UIView!
     @IBOutlet weak var descrBgView: UIView!
     @IBOutlet weak var commentBgView: UIView!
+    @IBOutlet weak var statusBgView: UIView!
+    
+    @IBOutlet weak var lastUpdateLbl: UILabel!
+    @IBOutlet weak var statusLbl: UILabel!
+    
     
     var reviewSpot: Parking?
     
@@ -34,7 +39,7 @@ class ReviewSpotViewController: UIViewController {
     
     //MARK:UI
     private func configureUI() {
-        let viewsBgArray : [UIView] = [nameBgView, descrBgView, commentBgView]
+        let viewsBgArray : [UIView] = [nameBgView, descrBgView, commentBgView, statusBgView]
         
         for item in viewsBgArray {
             item.backgroundColor = .white
@@ -43,12 +48,23 @@ class ReviewSpotViewController: UIViewController {
     }
     
     private func updateUI() {
-        guard let parking = reviewSpot else { return }
+        guard let parking = reviewSpot else { self.dismiss(animated: true, completion: nil); return }
         
         self.parkingNameLbl.text = parking.name
         self.addressLbl.text = parking.address
         self.descrLbl.text = parking.descript
         self.commentLbl.text = parking.comment
+        
+        if parking.lastUpdate != nil,
+           parking.status != nil {
+                self.statusBgView.isHidden = false
+                self.lastUpdateLbl.text = parking.lastUpdate
+                self.statusLbl.text = parking.status
+        } else {
+                self.statusBgView.isHidden = true
+        }
+        
+        
     }
 
 }

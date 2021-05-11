@@ -23,7 +23,7 @@ class NetworkService {
                         "lastUpdate" : lastUpdate,
                         "status" : status
                     ]
-                    NotificationCenter.default.post(name: NSNotification.Name("updateParkSource"), object: nil, userInfo: sourceDict)
+                    NotificationCenter.default.post(name: NSNotification.Name("getParkInfo"), object: nil, userInfo: sourceDict)
             }
         }
     }
