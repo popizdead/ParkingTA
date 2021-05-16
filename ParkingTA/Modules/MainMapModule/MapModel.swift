@@ -39,24 +39,13 @@ extension MainMapViewController: CLLocationManagerDelegate {
         map.delegate = self
     }
     
-    private func checkLocationAuth() {
+    func checkLocationAuth() {
         switch locationManager.authorizationStatus {
         case .authorizedWhenInUse:
             mapConfigure()
         default:
             locationManager.requestWhenInUseAuthorization()
         }
-    }
-    
-    //MARK:DELEGATES
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
-        let region = MKCoordinateRegion.init(center: location.coordinate, latitudinalMeters: regionConst, longitudinalMeters: regionConst)
-        map.setRegion(region, animated: true)
-    }
-    
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        checkLocationAuth()
     }
 }
 
@@ -121,7 +110,14 @@ extension MainMapViewController: MKMapViewDelegate {
         }
         
         let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "mapAnnotation")
-        annotationView.image = UIImage(named: "fav")
+        
+        guard let annotationSpot = sourceParkingArray.first(where: {$0.name == annotation.title}) else { return annotationView }
+        if dataManager.userFavoriteArray.contains(annotationSpot.id) {
+            annotationView.image = UIImage(named: "fav")
+        } else {
+            annotationView.image = UIImage(named: "parkingIcon")
+        }
+        
         annotationView.canShowCallout = true
         return annotationView
     }

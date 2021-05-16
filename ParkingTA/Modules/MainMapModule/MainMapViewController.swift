@@ -18,6 +18,8 @@ class MainMapViewController: UIViewController {
     let regionConst : Double = 10000
     
     let network = NetworkService.shared
+    let dataManager = DataManager.shared
+    
     var sourceParkingArray : [Parking] = []
     
     //MARK:VIEW LOAD
@@ -27,5 +29,16 @@ class MainMapViewController: UIViewController {
         checkPermission()
         observes()
         
+    }
+    
+    //MARK:DELEGATES
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else { return }
+        let region = MKCoordinateRegion.init(center: location.coordinate, latitudinalMeters: regionConst, longitudinalMeters: regionConst)
+        map.setRegion(region, animated: true)
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        checkLocationAuth()
     }
 }

@@ -61,6 +61,8 @@ class NetworkService {
     }
     
     private func parseParking(source: [String : Any]) -> Parking? {
+        let manager = DataManager.shared
+        
         if let name = source["Name"] as? String,
            let address = source["Address"] as? String,
            let long = (source["GPSLongitude"] as? NSString)?.floatValue,
@@ -70,6 +72,8 @@ class NetworkService {
            let id = source["AhuzotCode"] as? String {
                 let location = CLLocationCoordinate2D(latitude: CLLocationDegrees(lat), longitude: CLLocationDegrees(long))
                 let item = Parking(name: name, address: address, descr: descr, comment: comment, id: id, location: location)
+                item.isSaved = manager.userFavoriteArray.contains(where: {$0 == item.id})
+            
                 return item
         }
         return nil
