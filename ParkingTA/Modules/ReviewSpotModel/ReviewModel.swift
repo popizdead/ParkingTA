@@ -9,4 +9,58 @@ import Foundation
 
 extension ReviewSpotViewController {
     
+    //MARK:UI
+    func configureLabels() {
+        guard let parking = reviewSpot else { self.dismiss(animated: true, completion: nil); return }
+        
+        self.parkingNameLbl.text = parking.name
+        self.addressLbl.text = parking.address
+        self.descrLbl.text = parking.descript
+        self.commentLbl.text = parking.comment
+        
+        if parking.lastUpdate != nil,
+           parking.status != nil {
+                self.statusBgView.isHidden = false
+                self.lastUpdateLbl.text = parking.lastUpdate
+                self.statusLbl.text = parking.status
+        } else {
+                self.statusBgView.isHidden = true
+        }
+    }
+    
+    func configureButton() {
+        if isSavedSpot {
+            saveButton.setTitle("למחוק", for: .normal)
+        } else {
+            saveButton.setTitle("לשמור", for: .normal)
+        }
+    }
+    
+    //MARK:STATE
+    func checkSavedState() {
+        guard let id = reviewSpot?.id else { return }
+        if dataManager.userFavoriteArray.contains(id) {
+            self.isSavedSpot = true
+        } else {
+            self.isSavedSpot = false
+        }
+    }
+    
+    func buttonAction() {
+        guard let spot = reviewSpot else { return }
+        
+        if isSavedSpot {
+            dataManager.userFavoriteArray = dataManager.userFavoriteArray.filter({$0 != spot.id})
+            dataManager.delete(parking: spot)
+        } else {
+            dataManager.userFavoriteArray.append(spot.id)
+            dataManager.save(parking: spot)
+        }
+        
+        isSavedSpot = !isSavedSpot
+        reviewSpot?.isSaved = isSavedSpot
+        
+        NotificationCenter.default.post(name: NSNotification.Name("updateMap"), object: nil)
+        self.dismiss(animated: true, completion: nil)
+    }
 }

@@ -61,44 +61,6 @@ extension MainMapViewController {
         self.updateAnnotations()
     }
     
-    @objc func updateArray(_ notification: NSNotification) {
-        guard let parking = notification.userInfo?["source"] as? Parking else { return }
-        let coordinate = parking.location
-        
-        let annotation = MKPointAnnotation()
-        annotation.title = parking.name
-        annotation.coordinate = coordinate
-        
-        map.addAnnotation(annotation)
-        self.sourceParkingArray.append(parking)
-    }
-    
-    @objc func getParkInfo(_ notification: NSNotification) {
-        guard let id = notification.userInfo?["id"] as? String else { return }
-        guard let lastUpdate = notification.userInfo?["lastUpdate"] as? String else { return }
-        guard let status = notification.userInfo?["status"] as? String else { return }
-        
-        self.sourceParkingArray.forEach { (parking) in
-            if parking.id == id {
-                parking.lastUpdate = convertDate(string: lastUpdate)
-                parking.status = status
-            }
-        }
-    }
-    
-    private func convertDate(string: String) -> String {
-        let df = DateFormatter()
-        var tempString = ""
-        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z"
-        
-        if let date = df.date(from: string) {
-            df.dateFormat = "HH:mm:ss dd/MM"
-            tempString = df.string(from: date)
-        }
-        
-        return tempString
-    }
-    
     func updateAnnotations() {
         map.removeAnnotations(map.annotations)
         
