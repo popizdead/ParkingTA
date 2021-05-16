@@ -116,7 +116,14 @@ extension MainMapViewController {
 //MARK:ANNOTATION
 extension MainMapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        return nil
+        if annotation is MKUserLocation {
+            return nil
+        }
+        
+        let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "mapAnnotation")
+        annotationView.image = UIImage(named: "fav")
+        annotationView.canShowCallout = true
+        return annotationView
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {

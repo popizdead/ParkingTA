@@ -23,8 +23,12 @@ class ReviewSpotViewController: UIViewController {
     @IBOutlet weak var lastUpdateLbl: UILabel!
     @IBOutlet weak var statusLbl: UILabel!
     
+    @IBOutlet weak var saveButton: UIButton!
     
     var reviewSpot: Parking?
+    var isSavedSpot = false
+    
+    let dataManager = DataManager.shared
     
     //MARK:VIEW LOAD
     override func viewDidLoad() {
@@ -37,6 +41,10 @@ class ReviewSpotViewController: UIViewController {
         updateUI()
     }
     
+    private func addObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(updateUI), name: NSNotification.Name("updateReview"), object: nil)
+    }
+    
     //MARK:UI
     private func configureUI() {
         let viewsBgArray : [UIView] = [nameBgView, descrBgView, commentBgView, statusBgView]
@@ -47,7 +55,7 @@ class ReviewSpotViewController: UIViewController {
         }
     }
     
-    private func updateUI() {
+    @objc func updateUI() {
         guard let parking = reviewSpot else { self.dismiss(animated: true, completion: nil); return }
         
         self.parkingNameLbl.text = parking.name
@@ -64,7 +72,42 @@ class ReviewSpotViewController: UIViewController {
                 self.statusBgView.isHidden = true
         }
         
-        
+        self.checkSavedState()
+        self.configureButton()
     }
+    
+    private func checkSavedState() {
+        guard let id = reviewSpot?.id else { return }
+        if dataManager.userFavoriteArray.contains(id) {
+            self.isSavedSpot = true
+        } else {
+            self.isSavedSpot = false
+        }
+    }
+    
+    private func configureButton() {
+        if isSavedSpot {
+            saveButton.setTitle("למחוק", for: .normal)
+        } else {
+            saveButton.setTitle("לשמור", for: .normal)
+        }
+    }
+    
+    //MARK:ACTION
+    @IBAction func saveButtonTapped(_ sender: UIButton) {
+        guard let spot = reviewSpot else { return }
+        
+        if isSavedSpot {
+            dataManager.userFavoriteArray = dataManager.userFavoriteArray.filter({$0 != spot.id})
+            dataManager.delete(parking: spot)
+        } else {
+            dataManager.userFavoriteArray.append(spot.id)
+            dataManager.save(parking: spot)
+        }
+        
+        isSavedSpot = !isSavedSpot
+        configureButton()
+    }
+    
 
 }

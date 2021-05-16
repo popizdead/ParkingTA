@@ -20,6 +20,8 @@ final class Parking {
     var lastUpdate : String?
     var status : String?
     
+    var isSaved = false
+    
     init(name: String, address: String, descr: String, comment: String, id: String, location: CLLocationCoordinate2D) {
         self.address = address
         self.name = name
