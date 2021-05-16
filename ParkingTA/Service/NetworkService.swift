@@ -51,10 +51,7 @@ class NetworkService {
     private func getSourceOfParkings(sourceArray: [[String : Any]]) {
         for item in sourceArray {
             if let parkingItem = parseParking(source: item) {
-                let sourceDict : [String : Parking] = [
-                    "source" : parkingItem
-                ]
-                NotificationCenter.default.post(name: NSNotification.Name("updateParkSource"), object: nil, userInfo: sourceDict)
+                NotificationCenter.default.post(name: NSNotification.Name("updateParkSource"), object: nil, userInfo: parkingItem.getDictFromParking())
             }
         }
         self.getInfoOfParkings()

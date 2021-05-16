@@ -106,7 +106,11 @@ class ReviewSpotViewController: UIViewController {
         }
         
         isSavedSpot = !isSavedSpot
+        reviewSpot?.isSaved = isSavedSpot
+        
         configureButton()
+        NotificationCenter.default.post(name: NSNotification.Name("updateMap"), object: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
 

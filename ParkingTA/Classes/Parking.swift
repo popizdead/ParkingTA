@@ -30,4 +30,11 @@ final class Parking {
         self.location = location
         self.id = id
     }
+    
+    func getDictFromParking() -> [String : Parking] {
+        return [
+            "source" : self
+        ]
+    }
+    
 }

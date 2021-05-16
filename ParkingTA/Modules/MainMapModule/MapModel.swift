@@ -54,6 +54,11 @@ extension MainMapViewController {
     func observes() {
         NotificationCenter.default.addObserver(self, selector: #selector(updateArray(_:)), name: NSNotification.Name("updateParkSource"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(getParkInfo(_:)), name: NSNotification.Name("getParkInfo"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateMap), name: NSNotification.Name("updateMap"), object: nil)
+    }
+    
+    @objc func updateMap() {
+        self.updateAnnotations()
     }
     
     @objc func updateArray(_ notification: NSNotification) {
@@ -92,6 +97,20 @@ extension MainMapViewController {
         }
         
         return tempString
+    }
+    
+    func updateAnnotations() {
+        map.removeAnnotations(map.annotations)
+        
+        for item in sourceParkingArray {
+            let coordinate = item.location
+            
+            let annotation = MKPointAnnotation()
+            annotation.title = item.name
+            annotation.coordinate = coordinate
+            
+            map.addAnnotation(annotation)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
