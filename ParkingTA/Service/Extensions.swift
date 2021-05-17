@@ -32,4 +32,13 @@ extension String {
     func getDisctanceFormat(value: Double) -> String {
         return String(format: "%.2f קמ", value)
     }
+    
+    func convertDate() -> String? {
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z"
+        guard let date = df.date(from: self) else { return nil }
+        
+        df.dateFormat = "HH:mm dd/MM/yyyy"
+        return df.string(from: date)
+    }
 }

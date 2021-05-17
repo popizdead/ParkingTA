@@ -29,9 +29,10 @@ extension ReviewSpotViewController {
     }
     
     func configureButton() {
-        if isSavedSpot {
+        switch isSavedSpot {
+        case true:
             saveButton.setTitle("למחוק", for: .normal)
-        } else {
+        case false:
             saveButton.setTitle("לשמור", for: .normal)
         }
     }
@@ -39,11 +40,7 @@ extension ReviewSpotViewController {
     //MARK:STATE
     func checkSavedState() {
         guard let id = reviewSpot?.id else { return }
-        if dataManager.userFavoriteArray.contains(id) {
-            self.isSavedSpot = true
-        } else {
-            self.isSavedSpot = false
-        }
+        self.isSavedSpot = dataManager.userFavoriteArray.contains(id)
     }
     
     func buttonAction() {

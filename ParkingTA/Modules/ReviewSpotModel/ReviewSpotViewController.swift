@@ -24,6 +24,7 @@ class ReviewSpotViewController: UIViewController {
     @IBOutlet weak var statusLbl: UILabel!
     
     @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var wayButton: UIButton!
     
     var reviewSpot: Parking?
     var isSavedSpot = false
@@ -52,9 +53,11 @@ class ReviewSpotViewController: UIViewController {
         }
         
         self.view.backgroundColor = vc.whiteColor
+        saveButton.backgroundColor = vc.blueColor
+        wayButton.backgroundColor = vc.blueColor
         
         saveButton.makeShadowAndRadius(shadow: true, opacity: 0.5, radius: 10)
-        saveButton.backgroundColor = vc.blueColor
+        wayButton.makeShadowAndRadius(shadow: true, opacity: 0.5, radius: 10)
     }
     
     @objc func updateUI() {
@@ -69,5 +72,14 @@ class ReviewSpotViewController: UIViewController {
         self.buttonAction()
     }
     
-
+    @IBAction func wayButtonTapped(_ sender: UIButton) {
+        guard let spot = reviewSpot else { return }
+        
+        if (UIApplication.shared.canOpenURL(NSURL(string:"comgooglemaps://")! as URL)) {
+            UIApplication.shared.open(URL(string: "comgooglemaps://?saddr=&daddr=\(spot.location.latitude),\(spot.location.longitude)&directionsmode=driving")!, options: [:], completionHandler: nil)
+        } else {
+            NSLog("Can't use comgooglemaps://");
+        }
+    }
+    
 }

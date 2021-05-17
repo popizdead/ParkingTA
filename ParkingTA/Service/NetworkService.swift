@@ -46,15 +46,12 @@ class NetworkService {
     }
     
     private func getParkings(sourceArray: [[String : Any]]) {
-        getSourceOfParkings(sourceArray: sourceArray)
-    }
-    
-    private func getSourceOfParkings(sourceArray: [[String : Any]]) {
         for item in sourceArray {
             if let parkingItem = parseParking(source: item) {
                 NotificationCenter.default.post(name: NSNotification.Name("updateParkSource"), object: nil, userInfo: parkingItem.getDictFromParking())
             }
         }
+        
         self.getInfoOfParkings()
         NotificationCenter.default.post(name: NSNotification.Name("sourceDone"), object: nil)
     }
@@ -84,7 +81,6 @@ class NetworkService {
 extension MainMapViewController {
     @objc func updateArray(_ notification: NSNotification) {
         //MARK:TODO
-        
         guard let parking = notification.userInfo?["source"] as? Parking else { return }
         
         if !sourceParkingArray.contains(where: {$0.id == parking.id}) {
@@ -100,33 +96,16 @@ extension MainMapViewController {
     }
     
     @objc func getParkInfo(_ notification: NSNotification) {
-        guard let id = notification.userInfo?["id"] as? String else { return }
-        guard let lastUpdate = notification.userInfo?["lastUpdate"] as? String else { return }
-        guard let status = notification.userInfo?["status"] as? String else { return }
-        
-        self.sourceParkingArray.forEach { (parking) in
-            if parking.id == id {
-                parking.lastUpdate = convertDate(string: lastUpdate)
-                parking.status = status
-            }
+        if let id = notification.userInfo?["id"] as? String,
+           let lastUpdate = notification.userInfo?["lastUpdate"] as? String,
+           let updateString = lastUpdate.convertDate(),
+           let status = notification.userInfo?["status"] as? String {
+                let spot = self.sourceParkingArray.first(where: {$0.id == id})
+                spot?.lastUpdate = updateString
+                spot?.status = status
+                topNearestParkings = sourceParkingArray.sorted(by: {$0.distance! < $1.distance!})
+                self.parkingCV.reloadData()
         }
-        
-        topNearestParkings.removeAll()
-        let tempArray = sourceParkingArray.sorted(by: {$0.distance! < $1.distance!})
-        topNearestParkings = tempArray
-        self.parkingCV.reloadData()
     }
     
-    private func convertDate(string: String) -> String {
-        let df = DateFormatter()
-        var tempString = ""
-        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z"
-        
-        if let date = df.date(from: string) {
-            df.dateFormat = "HH:mm:ss dd/MM"
-            tempString = df.string(from: date)
-        }
-        
-        return tempString
-    }
 }

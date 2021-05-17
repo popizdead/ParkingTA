@@ -72,6 +72,7 @@ extension MainMapViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let parking = topNearestParkings[indexPath.row]
         let region = MKCoordinateRegion.init(center: parking.location, latitudinalMeters: 500, longitudinalMeters: 500)
+        
         map.setRegion(region, animated: true)
     }
 }

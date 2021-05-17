@@ -21,11 +21,8 @@ class DataManager {
         let fetchRequest : NSFetchRequest<ParkingItem> = ParkingItem.fetchRequest()
         
         if let savedArray = try? context.fetch(fetchRequest) {
-            for parkingElement in savedArray {
-                if parkingElement.id == parking.id {
-                    context.delete(parkingElement)
-                }
-            }
+            guard let element = savedArray.first(where: {$0.id == parking.id}) else { return }
+            context.delete(element)
         }
         
         do { try

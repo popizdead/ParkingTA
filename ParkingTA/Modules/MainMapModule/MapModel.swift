@@ -14,15 +14,16 @@ extension MainMapViewController: CLLocationManagerDelegate {
     private func mapConfigure() {
         map.showsUserLocation = true
         centerUserLocation()
+        
         locationManager.startUpdatingLocation()
         network.requestAllParking()
     }
     
     private func centerUserLocation() {
-        if let location = locationManager.location?.coordinate {
-            let region = MKCoordinateRegion.init(center: location, latitudinalMeters: regionConst, longitudinalMeters: regionConst)
-            map.setRegion(region, animated: true)
-        }
+        guard let location = locationManager.location?.coordinate else { return }
+        
+        let region = MKCoordinateRegion.init(center: location, latitudinalMeters: regionConst, longitudinalMeters: regionConst)
+        map.setRegion(region, animated: true)
     }
     
     //MARK:PERMISSION
@@ -39,6 +40,7 @@ extension MainMapViewController: CLLocationManagerDelegate {
     private func setupLocationDelegate() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        
         map.delegate = self
     }
     
@@ -82,9 +84,9 @@ extension MainMapViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let tempSpot = self.selectedSpot {
-            let destinationVC = segue.destination as! ReviewSpotViewController
-            destinationVC.reviewSpot = tempSpot
+        if let spot = self.selectedSpot,
+           let destinationVC = segue.destination as? ReviewSpotViewController {
+            destinationVC.reviewSpot = spot
         }
     }
 }
@@ -110,12 +112,10 @@ extension MainMapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        sourceParkingArray.forEach { (spot) in
-            if spot.name == view.annotation?.title {
-                self.selectedSpot = spot
-                self.performSegue(withIdentifier: "reviewSpot", sender: self)
-            }
-        }
+        guard let spot = sourceParkingArray.first(where: {$0.name == view.annotation?.title}) else { return }
+        
+        self.selectedSpot = spot
+        self.performSegue(withIdentifier: "reviewSpot", sender: self)
     }
 }
 

@@ -262,10 +262,27 @@
                                     <action selector="saveButtonTapped:" destination="ZSq-Dm-e4X" eventType="touchUpInside" id="dOq-H0-bma"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xxL-Z7-GIG">
+                                <rect key="frame" x="90" y="688" width="234" height="46"/>
+                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="X8T-dW-B8H"/>
+                                    <constraint firstAttribute="width" constant="234" id="zQO-0d-Ypw"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="19"/>
+                                <state key="normal" title="מסלול">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="saveButtonTapped:" destination="ZSq-Dm-e4X" eventType="touchUpInside" id="MwS-zC-vh5"/>
+                                    <action selector="wayButtonTapped:" destination="ZSq-Dm-e4X" eventType="touchUpInside" id="W1i-wF-dfE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="yc7-zc-wSg"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="xxL-Z7-GIG" firstAttribute="centerX" secondItem="yc7-zc-wSg" secondAttribute="centerX" id="0FU-a4-6so"/>
                             <constraint firstItem="Oei-ih-q0J" firstAttribute="centerX" secondItem="yc7-zc-wSg" secondAttribute="centerX" id="44D-ea-tTn"/>
                             <constraint firstItem="yc7-zc-wSg" firstAttribute="trailing" secondItem="G3g-cQ-ghw" secondAttribute="trailing" constant="20" id="8ut-ow-71A"/>
                             <constraint firstItem="G3g-cQ-ghw" firstAttribute="top" secondItem="yc7-zc-wSg" secondAttribute="top" constant="20" id="9WY-Zp-MLb"/>
@@ -274,10 +291,12 @@
                             <constraint firstItem="G3g-cQ-ghw" firstAttribute="leading" secondItem="yc7-zc-wSg" secondAttribute="leading" constant="20" id="Mp4-bG-kR2"/>
                             <constraint firstItem="B9b-1w-b5F" firstAttribute="leading" secondItem="yc7-zc-wSg" secondAttribute="leading" constant="20" id="PDV-mW-fOL"/>
                             <constraint firstItem="yc7-zc-wSg" firstAttribute="bottom" secondItem="Oei-ih-q0J" secondAttribute="bottom" constant="20" id="SeF-BA-HCs"/>
+                            <constraint firstItem="xxL-Z7-GIG" firstAttribute="top" relation="greaterThanOrEqual" secondItem="B9b-1w-b5F" secondAttribute="bottom" constant="8" id="cxj-gU-DOg"/>
                             <constraint firstItem="yc7-zc-wSg" firstAttribute="trailing" secondItem="O2T-YE-mR2" secondAttribute="trailing" constant="20" id="fl6-3E-khj"/>
                             <constraint firstItem="CMs-kQ-wl9" firstAttribute="top" secondItem="O2T-YE-mR2" secondAttribute="bottom" constant="15" id="n2E-BK-rPv"/>
                             <constraint firstItem="yc7-zc-wSg" firstAttribute="trailing" secondItem="CMs-kQ-wl9" secondAttribute="trailing" constant="20" id="oRc-um-We6"/>
                             <constraint firstItem="yc7-zc-wSg" firstAttribute="trailing" secondItem="B9b-1w-b5F" secondAttribute="trailing" constant="20" id="qXP-pR-7gG"/>
+                            <constraint firstItem="Oei-ih-q0J" firstAttribute="top" secondItem="xxL-Z7-GIG" secondAttribute="bottom" constant="8" symbolic="YES" id="wfc-2h-tVw"/>
                             <constraint firstItem="B9b-1w-b5F" firstAttribute="top" secondItem="CMs-kQ-wl9" secondAttribute="bottom" constant="15" id="xUt-xt-4nf"/>
                             <constraint firstItem="CMs-kQ-wl9" firstAttribute="leading" secondItem="yc7-zc-wSg" secondAttribute="leading" constant="20" id="z26-DL-EZK"/>
                         </constraints>
@@ -295,6 +314,7 @@
                         <outlet property="saveButton" destination="Oei-ih-q0J" id="v8H-GF-U3X"/>
                         <outlet property="statusBgView" destination="B9b-1w-b5F" id="Y7m-1E-F4C"/>
                         <outlet property="statusLbl" destination="4d5-4W-oAU" id="69U-ch-MRs"/>
+                        <outlet property="wayButton" destination="xxL-Z7-GIG" id="Hej-5t-SWe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ptU-hL-itH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
