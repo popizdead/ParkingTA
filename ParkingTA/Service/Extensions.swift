@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 import UIKit
 
 extension UIView {
@@ -18,5 +19,17 @@ extension UIView {
             self.layer.masksToBounds = false
         }
         self.layer.cornerRadius = CGFloat(radius)
+    }
+}
+
+extension CLLocationDistance {
+    func inKilometers() -> CLLocationDistance {
+        return self/1000
+    }
+}
+
+extension String {
+    func getDisctanceFormat(value: Double) -> String {
+        return String(format: "%.2f קמ", value)
     }
 }

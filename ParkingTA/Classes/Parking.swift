@@ -19,6 +19,7 @@ final class Parking {
     
     var lastUpdate : String?
     var status : String?
+    var distance : Double?
     
     var isSaved = false
     

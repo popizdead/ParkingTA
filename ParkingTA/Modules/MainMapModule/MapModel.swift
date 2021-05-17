@@ -26,7 +26,10 @@ extension MainMapViewController: CLLocationManagerDelegate {
     }
     
     //MARK:PERMISSION
-    func checkPermission() {
+    func setDelegates() {
+        parkingCV.delegate = self
+        parkingCV.dataSource = self
+        
         if CLLocationManager.locationServicesEnabled() {
             setupLocationDelegate()
             checkLocationAuth()
@@ -50,11 +53,14 @@ extension MainMapViewController: CLLocationManagerDelegate {
 }
 
 extension MainMapViewController {
+    
     //MARK:OBSERVES
     func observes() {
         NotificationCenter.default.addObserver(self, selector: #selector(updateArray(_:)), name: NSNotification.Name("updateParkSource"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(getParkInfo(_:)), name: NSNotification.Name("getParkInfo"), object: nil)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(updateMap), name: NSNotification.Name("updateMap"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(getNearestParkings), name: NSNotification.Name("sourceDone"), object: nil)
     }
     
     @objc func updateMap() {
@@ -110,5 +116,22 @@ extension MainMapViewController: MKMapViewDelegate {
                 self.performSegue(withIdentifier: "reviewSpot", sender: self)
             }
         }
+    }
+}
+
+//MARK:NEAREST PARKINGS
+extension MainMapViewController {
+    @objc func getNearestParkings() {
+        guard let userLocation = locationManager.location else { return }
+        sourceParkingArray.forEach { (parking) in
+            let location = CLLocation(latitude: parking.location.latitude, longitude: parking.location.longitude)
+            let distance = userLocation.distance(from: location).inKilometers()
+            parking.distance = distance
+        }
+        
+        topNearestParkings.removeAll()
+        let tempArray = sourceParkingArray.sorted(by: {$0.distance! < $1.distance!})
+        topNearestParkings = tempArray
+        self.parkingCV.reloadData()
     }
 }

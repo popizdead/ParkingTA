@@ -56,6 +56,7 @@ class NetworkService {
             }
         }
         self.getInfoOfParkings()
+        NotificationCenter.default.post(name: NSNotification.Name("sourceDone"), object: nil)
     }
     
     private func parseParking(source: [String : Any]) -> Parking? {
@@ -70,6 +71,7 @@ class NetworkService {
            let id = source["AhuzotCode"] as? String {
                 let location = CLLocationCoordinate2D(latitude: CLLocationDegrees(lat), longitude: CLLocationDegrees(long))
                 let item = Parking(name: name, address: address, descr: descr, comment: comment, id: id, location: location)
+            
                 item.isSaved = manager.userFavoriteArray.contains(where: {$0 == item.id})
             
                 return item
@@ -81,15 +83,20 @@ class NetworkService {
 //MARK:MAP VC
 extension MainMapViewController {
     @objc func updateArray(_ notification: NSNotification) {
+        //MARK:TODO
+        
         guard let parking = notification.userInfo?["source"] as? Parking else { return }
-        let coordinate = parking.location
         
-        let annotation = MKPointAnnotation()
-        annotation.title = parking.name
-        annotation.coordinate = coordinate
-        
-        map.addAnnotation(annotation)
-        self.sourceParkingArray.append(parking)
+        if !sourceParkingArray.contains(where: {$0.id == parking.id}) {
+            let coordinate = parking.location
+            
+            let annotation = MKPointAnnotation()
+            annotation.title = parking.name
+            annotation.coordinate = coordinate
+            
+            map.addAnnotation(annotation)
+            self.sourceParkingArray.append(parking)
+        }
     }
     
     @objc func getParkInfo(_ notification: NSNotification) {
@@ -103,6 +110,11 @@ extension MainMapViewController {
                 parking.status = status
             }
         }
+        
+        topNearestParkings.removeAll()
+        let tempArray = sourceParkingArray.sorted(by: {$0.distance! < $1.distance!})
+        topNearestParkings = tempArray
+        self.parkingCV.reloadData()
     }
     
     private func convertDate(string: String) -> String {
