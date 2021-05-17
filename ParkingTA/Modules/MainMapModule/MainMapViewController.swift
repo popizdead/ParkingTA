@@ -17,13 +17,18 @@ class MainMapViewController: UIViewController {
     var selectedSpot: Parking?
     
     let locationManager = CLLocationManager()
-    let regionConst : Double = 10000
+    let regionConst : Double = 1500
     
     let network = NetworkService.shared
     let dataManager = DataManager.shared
     
     var sourceParkingArray : [Parking] = []
     var topNearestParkings : [Parking] = []
+    
+    //Colors
+    public let blackColor = UIColor(named: "BlackColor")
+    public let whiteColor = UIColor(named: "WhiteColor")
+    public let blueColor = UIColor(named: "BlueColor")
     
     //MARK:VIEW LOAD
     override func viewDidLoad() {
@@ -41,13 +46,6 @@ class MainMapViewController: UIViewController {
     private func configureUI() {
         self.parkingCV.backgroundColor = .clear
         self.parkingCV.backgroundView = UIView(frame: .zero)
-    }
-    
-    //MARK:DELEGATES
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
-        let region = MKCoordinateRegion.init(center: location.coordinate, latitudinalMeters: regionConst, longitudinalMeters: regionConst)
-        map.setRegion(region, animated: true)
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
@@ -71,5 +69,9 @@ extension MainMapViewController: UICollectionViewDelegate, UICollectionViewDataS
         return cell
     }
     
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let parking = topNearestParkings[indexPath.row]
+        let region = MKCoordinateRegion.init(center: parking.location, latitudinalMeters: 500, longitudinalMeters: 500)
+        map.setRegion(region, animated: true)
+    }
 }

@@ -28,5 +28,18 @@ class ParkingCollectionViewCell: UICollectionViewCell {
         self.makeShadowAndRadius(shadow: true, opacity: 0.5, radius: 10)
         self.contentView.makeShadowAndRadius(shadow: true, opacity: 0.5, radius: 10)
         self.bgView.makeShadowAndRadius(shadow: true, opacity: 0.5, radius: 10)
+        
+        fillColors()
+    }
+    
+    private func fillColors() {
+        let lblsArray : [UILabel] = [stateLbl, nameLbl, distanceLbl, addresLbl]
+        let vc = MainMapViewController()
+        
+        for lbl in lblsArray {
+            lbl.textColor = vc.blackColor
+        }
+        
+        bgView.backgroundColor = vc.whiteColor
     }
 }

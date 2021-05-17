@@ -44,13 +44,17 @@ class ReviewSpotViewController: UIViewController {
     //MARK:UI
     private func configureUI() {
         let viewsBgArray : [UIView] = [nameBgView, descrBgView, commentBgView, statusBgView]
+        let vc = MainMapViewController()
         
         for item in viewsBgArray {
-            item.backgroundColor = .white
+            item.backgroundColor = vc.whiteColor
             item.makeShadowAndRadius(shadow: true, opacity: 0.5, radius: 10)
         }
         
+        self.view.backgroundColor = vc.whiteColor
+        
         saveButton.makeShadowAndRadius(shadow: true, opacity: 0.5, radius: 10)
+        saveButton.backgroundColor = vc.blueColor
     }
     
     @objc func updateUI() {

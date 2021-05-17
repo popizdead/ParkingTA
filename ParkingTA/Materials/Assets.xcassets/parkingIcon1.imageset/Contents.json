@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "favorite.png",
+      "filename" : "car-parking.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,7 +12,6 @@
           "value" : "dark"
         }
       ],
-      "filename" : "favorite (1).png",
       "idiom" : "universal",
       "scale" : "1x"
     },

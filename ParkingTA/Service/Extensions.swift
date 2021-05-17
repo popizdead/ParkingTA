@@ -12,7 +12,7 @@ import UIKit
 extension UIView {
     func makeShadowAndRadius(shadow: Bool, opacity: Float, radius: Float) {
         if shadow {
-            self.layer.shadowColor = UIColor.darkGray.cgColor
+            self.layer.shadowColor = UIColor(named: "ShadowColor")?.cgColor
             self.layer.shadowOpacity = opacity
             self.layer.shadowOffset = .zero
             self.layer.shadowRadius = 5

@@ -248,8 +248,12 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oei-ih-q0J">
-                                <rect key="frame" x="100" y="750" width="214" height="38"/>
+                                <rect key="frame" x="90" y="742" width="234" height="46"/>
                                 <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="C3s-cs-ZS9"/>
+                                    <constraint firstAttribute="width" constant="234" id="MVq-nW-mLt"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="19"/>
                                 <state key="normal" title="לשמור">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -262,8 +266,7 @@
                         <viewLayoutGuide key="safeArea" id="yc7-zc-wSg"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Oei-ih-q0J" firstAttribute="centerX" secondItem="yc7-zc-wSg" secondAttribute="centerX" id="3XZ-XY-2Mh"/>
-                            <constraint firstItem="Oei-ih-q0J" firstAttribute="leading" secondItem="yc7-zc-wSg" secondAttribute="leading" constant="100" id="7Rc-E1-A52"/>
+                            <constraint firstItem="Oei-ih-q0J" firstAttribute="centerX" secondItem="yc7-zc-wSg" secondAttribute="centerX" id="44D-ea-tTn"/>
                             <constraint firstItem="yc7-zc-wSg" firstAttribute="trailing" secondItem="G3g-cQ-ghw" secondAttribute="trailing" constant="20" id="8ut-ow-71A"/>
                             <constraint firstItem="G3g-cQ-ghw" firstAttribute="top" secondItem="yc7-zc-wSg" secondAttribute="top" constant="20" id="9WY-Zp-MLb"/>
                             <constraint firstItem="O2T-YE-mR2" firstAttribute="leading" secondItem="yc7-zc-wSg" secondAttribute="leading" constant="20" id="Ay0-fN-4cZ"/>
@@ -271,13 +274,11 @@
                             <constraint firstItem="G3g-cQ-ghw" firstAttribute="leading" secondItem="yc7-zc-wSg" secondAttribute="leading" constant="20" id="Mp4-bG-kR2"/>
                             <constraint firstItem="B9b-1w-b5F" firstAttribute="leading" secondItem="yc7-zc-wSg" secondAttribute="leading" constant="20" id="PDV-mW-fOL"/>
                             <constraint firstItem="yc7-zc-wSg" firstAttribute="bottom" secondItem="Oei-ih-q0J" secondAttribute="bottom" constant="20" id="SeF-BA-HCs"/>
-                            <constraint firstItem="Oei-ih-q0J" firstAttribute="top" relation="greaterThanOrEqual" secondItem="B9b-1w-b5F" secondAttribute="bottom" constant="15" id="ZbL-a6-guV"/>
                             <constraint firstItem="yc7-zc-wSg" firstAttribute="trailing" secondItem="O2T-YE-mR2" secondAttribute="trailing" constant="20" id="fl6-3E-khj"/>
                             <constraint firstItem="CMs-kQ-wl9" firstAttribute="top" secondItem="O2T-YE-mR2" secondAttribute="bottom" constant="15" id="n2E-BK-rPv"/>
                             <constraint firstItem="yc7-zc-wSg" firstAttribute="trailing" secondItem="CMs-kQ-wl9" secondAttribute="trailing" constant="20" id="oRc-um-We6"/>
                             <constraint firstItem="yc7-zc-wSg" firstAttribute="trailing" secondItem="B9b-1w-b5F" secondAttribute="trailing" constant="20" id="qXP-pR-7gG"/>
                             <constraint firstItem="B9b-1w-b5F" firstAttribute="top" secondItem="CMs-kQ-wl9" secondAttribute="bottom" constant="15" id="xUt-xt-4nf"/>
-                            <constraint firstItem="yc7-zc-wSg" firstAttribute="trailing" secondItem="Oei-ih-q0J" secondAttribute="trailing" constant="100" id="ySt-Yj-ENM"/>
                             <constraint firstItem="CMs-kQ-wl9" firstAttribute="leading" secondItem="yc7-zc-wSg" secondAttribute="leading" constant="20" id="z26-DL-EZK"/>
                         </constraints>
                     </view>
